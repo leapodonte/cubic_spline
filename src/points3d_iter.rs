@@ -1,18 +1,18 @@
-use crate::{Point, Points, SplineOpts};
+use crate::{Point3D, Points3D, SplineOpts3D};
 
-pub(crate) type PointsToCalc<'a> = (&'a Point, &'a Point, &'a Point, &'a Point);
+pub(crate) type Points3DToCalc<'a> = (&'a Point3D, &'a Point3D, &'a Point3D, &'a Point3D);
 
-pub(crate) struct PointsIter<'a> {
+pub(crate) struct Points3DIter<'a> {
     max_index: usize,
     index: usize,
-    points: &'a Points,
-    current: [&'a Point; 4],
-    hidden_point_at_end: Option<&'a Point>,
+    points: &'a Points3D,
+    current: [&'a Point3D; 4],
+    hidden_point_at_end: Option<&'a Point3D>,
     closed: bool,
 }
 
-impl<'a> PointsIter<'a> {
-    pub(crate) fn new(points: &'a Points, opts: &'a SplineOpts) -> Self {
+impl<'a> Points3DIter<'a> {
+    pub(crate) fn new(points: &'a Points3D, opts: &'a SplineOpts3D) -> Self {
         let pts = points.get_ref();
         let curr = &pts[0];
         let prev = if opts.get_closed() {
@@ -37,7 +37,7 @@ impl<'a> PointsIter<'a> {
             pts.len() - 1
         };
 
-        PointsIter {
+        Points3DIter {
             max_index,
             index: 0,
             points,
@@ -47,7 +47,7 @@ impl<'a> PointsIter<'a> {
         }
     }
 
-    fn get_points_to_calc(&self) -> PointsToCalc<'a> {
+    fn get_points_to_calc(&self) -> Points3DToCalc<'a> {
         let c = self.current;
         (&c[0], &c[1], &c[2], &c[3])
     }
@@ -79,8 +79,8 @@ impl<'a> PointsIter<'a> {
     }
 }
 
-impl<'a> Iterator for PointsIter<'a> {
-    type Item = PointsToCalc<'a>;
+impl<'a> Iterator for Points3DIter<'a> {
+    type Item = Points3DToCalc<'a>;
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.index == self.max_index {

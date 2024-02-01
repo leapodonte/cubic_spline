@@ -4,13 +4,17 @@ use std::fmt::{self, Debug, Display, Formatter};
 /// This type represents all possible errors that can occur when constructing new spline points.
 #[derive(Eq, PartialEq)]
 pub enum Error {
-  ///
-  /// Thrown when you passing flatten points and missing last `y` value.
-  MissingY,
+    ///
+    /// Thrown when you passing flatten points and missing last `y` value.
+    MissingY,
 
-  ///
-  /// Thrown when there are less than **two** points passed.
-  TooFewPoints,
+    ///
+    /// Thrown when you passing flatten points and missing last `y` or `z` value of point in 3D.
+    MissingCoordinate,
+
+    ///
+    /// Thrown when there are less than **two** points passed.
+    TooFewPoints,
 }
 
 ///
@@ -20,24 +24,25 @@ pub enum Error {
 pub type Result<T, E = Error> = std::result::Result<T, E>;
 
 impl Error {
-  pub fn msg(&self) -> &'static str {
-    match self {
-      Error::MissingY => "Passed values is not even. Last `y` is missing",
-      Error::TooFewPoints => "Too few points. There should be more than one",
+    pub fn msg(&self) -> &'static str {
+        match self {
+            Error::MissingY => "Passed values is not even. Last `y` is missing",
+            Error::MissingCoordinate => "Passed values is not even. Last `y` or `z` is missing",
+            Error::TooFewPoints => "Too few points. There should be more than one",
+        }
     }
-  }
 }
 
 impl Display for Error {
-  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-    f.write_str(self.msg())
-  }
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        f.write_str(self.msg())
+    }
 }
 
 impl Debug for Error {
-  fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-    f.write_str(self.msg())
-  }
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        f.write_str(self.msg())
+    }
 }
 
 impl std::error::Error for Error {}

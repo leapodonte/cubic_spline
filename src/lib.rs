@@ -76,15 +76,20 @@ mod tests;
 mod calc;
 mod err;
 mod opts;
+mod opts3d;
 mod points;
+mod points3d;
+mod points3d_iter;
 mod points_iter;
 mod tfti;
 
-pub use calc::calc_spline;
+pub use calc::{calc_spline, calc_spline_3d};
 
 pub use err::{Error, Result};
 pub use opts::{SplineOpts, DEFAULT_SEGMENTS, DEFAULT_TENSION};
+pub use opts3d::SplineOpts3D;
 pub use points::{Point, Points, DEFAULT_APPROX_EQ_PRECISION};
+pub use points3d::{Point3D, Points3D};
 pub use tfti::{TryFrom, TryInto};
 
 #[cfg(target_arch = "wasm32")]
