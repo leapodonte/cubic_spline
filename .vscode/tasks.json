@@ -1,0 +1,42 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cargo",
+			"command": "build",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "rust: cargo build"
+		},
+		{
+			"type": "cargo",
+			"command": "build",
+			"args": [
+				"--release"
+			],
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"label": "rust: cargo build --release"
+		},
+		{
+			"type": "shell",
+			"command": "trunk serve --release",
+			"args": [],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"label": "rust: trunk serve (wasm)"
+		}
+	]
+}
