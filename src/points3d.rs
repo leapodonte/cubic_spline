@@ -352,7 +352,7 @@ where
     type Error = Error;
     fn try_from(points: I) -> Result<Self> {
         let v: Vec<Point3D> = points.into_iter().map(Into::into).collect();
-        if v.len() < 3 {
+        if v.len() < 2 {
             return Err(Error::TooFewPoints);
         }
         Ok(Points3D(v))
