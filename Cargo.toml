@@ -2,7 +2,7 @@
 name = "cubic_spline"
 version = "1.0.0"
 authors = ["mz <emgyrz@gmail.com>"]
-edition = "2018"
+edition = "2021"
 description = "Function that calculates curve points for cubic spline"
 license = "MIT"
 homepage = "https://github.com/emgyrz/cubic_spline"
@@ -13,11 +13,8 @@ categories = [ "graphics"]
 readme = "README.md"
 
 [target.wasm32-unknown-unknown.dependencies]
-wasm-bindgen = "0.2.69"
+wasm-bindgen = "0.2"
 
 [lib]
 
 crate-type = ["cdylib", "rlib"]
-
-[package.metadata.wasm-pack.profile.release]
-wasm-opt = false
